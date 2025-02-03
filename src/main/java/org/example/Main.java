@@ -4,6 +4,8 @@ import org.example.enums.Genre;
 import org.example.models.Book;
 import org.example.models.Library;
 import org.example.models.Member;
+import org.example.models.User;
+import org.example.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +15,13 @@ public class Main {
 
     private static Logger logger = LoggerFactory.getLogger(Main.class);
 
-    // User Creation
+    private static Scanner sc = new Scanner(System.in);
+
+    private static UserService service = new UserService();
+
+    private static Library library = new Library();
+
+    // User Creation --- done
     // Member add, deletion, update
     // Book add, delete, update
     // Borrow ---> A member will borrow a book
@@ -26,23 +34,86 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Member member1 = new Member(1,"ABCD", 28, "XZAS");
-        Member member2 = new Member(2,"TYPA", 26, "TWEQ");
+        boolean isApplicationRunning = true;
+        boolean isLoggedIn = false;
 
-        Book book1 = new Book(1,"YXT", 2, Genre.SCIFI);
-        Book book2 = new Book(2, "UTA", 2, Genre.FICTION);
+        while (isApplicationRunning){
+            if(!isLoggedIn){
+                System.out.println("Enter User Name: \n");
+                String userName = sc.nextLine();
+                System.out.println("Enter Password: \n");
+                String password = sc.nextLine();
 
-        Library library = new Library();
+                if(service.isValidUser(userName, password)){
+                    System.out.println("It is a valid user");
+                    isLoggedIn = true;
+                }
+                else{
+                    System.out.println("Not a valid user!!");
+                    System.out.println("Create a new user!");
 
-        library.addMember(member1);
-        library.addMember(member2);
+                    System.out.println("Ener userId: ");
+                    int userId = Integer.parseInt(sc.nextLine());
+                    System.out.println("Enter userName: ");
+                    userName = sc.nextLine();
+                    System.out.println("Enter email: ");
+                    String email = sc.nextLine();
+                    System.out.println("Enter address: ");
+                    String address = sc.nextLine();
+                    System.out.println("Enter password: ");
+                    password = sc.nextLine();
 
-        library.addBook(book1);
-        library.addBook(book2);
+                    User newUser = new User(userId, userName, email, address, password);
+                    service.addUser(newUser);
+                }
+
+            }else{
+                System.out.println("Choose Management Option: (1-8)");
+                System.out.println("1. Add a member \n"
+                                + "2. Update a member \n"
+                                + "3. Delete a member \n"
+                                + "4. Add a book \n"
+                                + "5. Remove a book \n"
+                                + "6. Update a book \n"
+                                + " 7. Show all members \n"
+                                + "8. Show all books" );
+
+                int option = Integer.parseInt(sc.nextLine());
+
+                switch (option){
+                    case 1:
+                        System.out.println("Enter member id:");
+                        int memberId = Integer.parseInt(sc.nextLine());
+                        System.out.println("Enter member name: ");
+                        String memberName = sc.nextLine();
+                        System.out.println("Enter age: ");
+                        int age = Integer.parseInt(sc.nextLine());
+                        System.out.println("Enter address: ");
+                        String address = sc.nextLine();
+                        Member member = new Member(memberId,memberName, age, address);
+                        library.addMember(member);
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        break;
+                    case 8:
+                        break;
+                    default:
 
 
-//        System.out.println(library);
-        logger.info(String.valueOf(library.getAllBooks()));
+                }
+
+            }
+        }
 
 
     }
