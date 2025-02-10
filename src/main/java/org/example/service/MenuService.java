@@ -43,6 +43,7 @@ public class MenuService {
                 handleUpdateMember();
                 break;
             case 3:
+                handleDeleteMember();
                 break;
             case 4:
                 break;
@@ -89,6 +90,21 @@ public class MenuService {
                                 +"1. Name \n"
                                 +"2. Address");
 
+            int option = Integer.parseInt(sc.nextLine());
+            switch (option){
+                case 1:
+                    System.out.println("Update Name: ");
+                    String updatedName = sc.nextLine();
+                    memberToBeUpdated.setName(updatedName);
+                    break;
+                case 2:
+                    System.out.println("Update Address: ");
+                    String updatedAddress = sc.nextLine();
+                    memberToBeUpdated.setAddress(updatedAddress);
+            }
+
+            memberService.updateMember(memberId, memberToBeUpdated);
+
         }{
             System.out.println("Member not found with the described Id");
         }
@@ -101,6 +117,14 @@ public class MenuService {
         for(var member : library.getAllMembers()){
             System.out.println(i++ + ". " + member.getName() + ", id: " + member.getId());
         }
+    }
+
+    private void handleDeleteMember(){
+        System.out.println("Choose which member data to be deleted: ");
+        handleShowMember();
+        int memberId = Integer.parseInt(sc.nextLine());
+        memberService.deleteMember(memberId);
+        library.removeMemberById(memberId);
     }
 
 }
