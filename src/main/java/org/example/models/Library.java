@@ -59,6 +59,15 @@ public class Library {
 
     }
 
+    public Member findByMemberId(int id){
+        return memberService.findByMemberId(id);
+    }
+
+    public void updateMember(int id, Member updatedMember){
+        memberService.updateMember(id, updatedMember);
+        allMembers = memberService.getMemberList();
+    }
+
 
     public List<Book> getAllBooks() {
         return allBooks;

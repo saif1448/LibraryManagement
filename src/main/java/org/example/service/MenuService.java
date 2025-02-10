@@ -14,7 +14,7 @@ public class MenuService {
 
     private Library library;
 
-    private MemberService memberService = new MemberService();
+//    private MemberService memberService = new MemberService();
 
     public MenuService(Scanner sc, Library library){
         this.sc = sc;
@@ -74,7 +74,7 @@ public class MenuService {
         String address = sc.nextLine();
         Member member = new Member(memberId,memberName, age, address);
         library.addMember(member);
-        memberService.addMember(member);
+//        memberService.addMember(member);
     }
 
     private void handleUpdateMember(){
@@ -83,7 +83,8 @@ public class MenuService {
         System.out.println("Choose Which Member Details to Update (member id): ");
         int memberId = Integer.parseInt(sc.nextLine());
 
-        Member memberToBeUpdated = memberService.findByMemberId(memberId);
+//        Member memberToBeUpdated = memberService.findByMemberId(memberId);
+        Member memberToBeUpdated = library.findByMemberId(memberId);
 
         if(memberToBeUpdated != null){
             System.out.println("Which Data to be Updated: \n"
@@ -103,7 +104,8 @@ public class MenuService {
                     memberToBeUpdated.setAddress(updatedAddress);
             }
 
-            memberService.updateMember(memberId, memberToBeUpdated);
+//            memberService.updateMember(memberId, memberToBeUpdated);
+            library.updateMember(memberId, memberToBeUpdated);
 
         }{
             System.out.println("Member not found with the described Id");
@@ -123,7 +125,7 @@ public class MenuService {
         System.out.println("Choose which member data to be deleted: ");
         handleShowMember();
         int memberId = Integer.parseInt(sc.nextLine());
-        memberService.deleteMember(memberId);
+//        memberService.deleteMember(memberId);
         library.removeMemberById(memberId);
     }
 
