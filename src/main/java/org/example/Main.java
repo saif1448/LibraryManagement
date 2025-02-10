@@ -46,9 +46,18 @@ public class Main {
         while (isApplicationRunning) {
             if (!isLoggedIn) {
                 //It is handling login
-                isLoggedIn = userAuthenticationService.handleLogin();
+                System.out.println("1. Log in \n" +
+                                    "2. Exit From Program");
+                int option = Integer.parseInt(sc.nextLine());
+                if(option == 1){
+                    isLoggedIn = userAuthenticationService.handleLogin();
+                }else{
+                    isApplicationRunning = false;
+                    System.out.println("Exiting from the application");
+                }
+
             } else {
-                menuService.showMenu();
+                isLoggedIn = menuService.showMenu();
             }
         }
 

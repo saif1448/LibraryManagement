@@ -21,7 +21,7 @@ public class MenuService {
         this.library = library;
     }
 
-    public void showMenu(){
+    public boolean showMenu(){
         System.out.println("Choose Management Option: (1-8)");
         System.out.println("1. Add a member \n"
                 + "2. Update a member \n"
@@ -31,7 +31,7 @@ public class MenuService {
                 + "6. Update a book \n"
                 + "7. Show all members \n"
                 + "8. Show all books \n"
-                + "9. Exit");
+                + "9. Log Out");
 
         int option = Integer.parseInt(sc.nextLine());
 
@@ -56,9 +56,13 @@ public class MenuService {
                 break;
             case 8:
                 break;
+            case 9:
+                return false;
             default:
 
         }
+
+        return true;
 
     }
 
