@@ -1,5 +1,6 @@
 package org.example.models;
 import lombok.ToString;
+import org.example.service.BookService;
 import org.example.service.MemberService;
 
 import java.util.*;
@@ -8,23 +9,33 @@ import java.util.*;
 public class Library {
 
     private MemberService memberService = new MemberService();
+    private BookService bookService = new BookService();
 
     private List<Book> allBooks;
     private List<Member> allMembers;
 
     public Library(){
-        allBooks = new ArrayList<>();
+//        allBooks = new ArrayList<>();
+        allBooks = bookService.getBookList();
 //        allMembers = new ArrayList<>();
         allMembers = memberService.getMemberList();
+
     }
 
     public void addBook(Book newBook){
 
-        allBooks.add(newBook);
+//        allBooks.add(newBook);
+        bookService.addBook(newBook);
+        allBooks = bookService.getBookList();
     }
 
     public void removeBook(Book book){
         allBooks.remove(book);
+    }
+
+    public void removeBookById(int id){
+        bookService.deleteBook(id);
+        allBooks = bookService.getBookList();
     }
 
     public void addMember(Member newMember){
@@ -63,9 +74,18 @@ public class Library {
         return memberService.findByMemberId(id);
     }
 
+    public Book findByBookId(int id){
+        return bookService.findByBookId(id);
+    }
+
     public void updateMember(int id, Member updatedMember){
         memberService.updateMember(id, updatedMember);
         allMembers = memberService.getMemberList();
+    }
+
+    public void updateBook(int id, Book updatedBook){
+        bookService.updateBook(id, updatedBook);
+        allBooks = bookService.getBookList();
     }
 
 

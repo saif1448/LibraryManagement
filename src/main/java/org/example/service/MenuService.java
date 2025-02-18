@@ -1,5 +1,7 @@
 package org.example.service;
 
+import org.example.enums.Genre;
+import org.example.models.Book;
 import org.example.models.Library;
 import org.example.models.Member;
 
@@ -31,7 +33,9 @@ public class MenuService {
                 + "6. Update a book \n"
                 + "7. Show all members \n"
                 + "8. Show all books \n"
-                + "9. Log Out");
+                + "9. Sort Members \n"
+                + "10. Sort Books \n"
+                + "11. Log Out");
 
         int option = Integer.parseInt(sc.nextLine());
 
@@ -46,19 +50,28 @@ public class MenuService {
                 handleDeleteMember();
                 break;
             case 4:
+                handleAddBook();
                 break;
             case 5:
+                handleDeleteBook();
                 break;
             case 6:
+                handleUpdateBook();
                 break;
             case 7:
                 handleShowMember();
                 break;
             case 8:
+                handleShowBook();
                 break;
             case 9:
+                break;
+            case 10:
+                break;
+            case 11:
                 return false;
             default:
+                System.out.println("Wrong input was chosen");
 
         }
 
@@ -119,10 +132,11 @@ public class MenuService {
     }
 
     private void handleShowMember(){
-        int i = 1;
-        for(var member : library.getAllMembers()){
-            System.out.println(i++ + ". " + member.getName() + ", id: " + member.getId());
-        }
+//        int i = 1;
+//        for(var member : library.getAllMembers()){
+//            System.out.println(i++ + ". " + member.getName() + ", id: " + member.getId());
+//        }
+        library.showAllMembers();
     }
 
     private void handleDeleteMember(){
@@ -132,5 +146,76 @@ public class MenuService {
 //        memberService.deleteMember(memberId);
         library.removeMemberById(memberId);
     }
+
+
+    private void handleAddBook() {
+        System.out.println("Enter book id:");
+        long bookId = Long.parseLong(sc.nextLine());
+        System.out.println("Enter author name: ");
+        String author = sc.nextLine();
+        System.out.println("Enter edition: ");
+        int edition = Integer.parseInt(sc.nextLine());
+        System.out.println("Enter genre (ACTION, FICTION, SCIFI, NOVEL, ROMANCE, FANTASY, MYSTERY): ");
+        String genreInput = sc.nextLine().toUpperCase();
+        Genre genre = Genre.valueOf(genreInput);
+
+        Book book = new Book(bookId, author, edition, genre);
+        library.addBook(book);
+    }
+
+    private void handleDeleteBook() {
+        System.out.println("Choose which book data to be deleted: ");
+        handleShowBook(); // Assuming this method displays the list of books
+        int bookId = Integer.parseInt(sc.nextLine());
+//    bookService.deleteBook(bookId);
+        library.removeBookById(bookId);
+    }
+
+    private void handleShowBook(){
+        library.showAllBook();
+    }
+
+    private void handleUpdateBook() {
+        handleShowBook();
+        System.out.println("Choose Which Book Details to Update (book id): ");
+        int bookId = Integer.parseInt(sc.nextLine());
+
+        Book bookToBeUpdated = library.findByBookId(bookId);
+
+        if (bookToBeUpdated != null) {
+            System.out.println("Which Data to be Updated: \n"
+                    + "1. Author \n"
+                    + "2. Edition \n"
+                    + "3. Genre");
+
+            int option = Integer.parseInt(sc.nextLine());
+            switch (option) {
+                case 1:
+                    System.out.println("Update Author: ");
+                    String updatedAuthor = sc.nextLine();
+                    bookToBeUpdated.setAuthor(updatedAuthor);
+                    break;
+                case 2:
+                    System.out.println("Update Edition: ");
+                    int updatedEdition = Integer.parseInt(sc.nextLine());
+                    bookToBeUpdated.setEdition(updatedEdition);
+                    break;
+                case 3:
+                    System.out.println("Update Genre (ACTION, FICTION, SCIFI, NOVEL, ROMANCE, FANTASY, MYSTERY): ");
+                    String updatedGenre = sc.nextLine().toUpperCase();
+                    bookToBeUpdated.setGenre(Genre.valueOf(updatedGenre));
+                    break;
+                default:
+                    System.out.println("Invalid option!");
+                    return;
+            }
+
+            library.updateBook(bookId, bookToBeUpdated);
+
+        } else {
+            System.out.println("Book not found with the described Id");
+        }
+    }
+
 
 }

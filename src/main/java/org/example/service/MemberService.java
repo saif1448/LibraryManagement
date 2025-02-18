@@ -15,7 +15,21 @@ public class MemberService {
     private List<Member> memberList;
 
     public MemberService(){
+
         memberList = new ArrayList<>();
+
+        Member member1 = new Member(1L, "Alice Johnson", 25, "123 Main St, Springfield");
+        Member member2 = new Member(2L, "Bob Smith", 30, "456 Elm St, Shelbyville");
+        Member member3 = new Member(3L, "Charlie Davis", 28, "789 Oak St, Capital City");
+        Member member4 = new Member(4L, "Diana Prince", 32, "101 Maple St, Gotham");
+        Member member5 = new Member(5L, "Ethan Hunt", 29, "202 Pine St, Metropolis");
+
+        memberList.add(member1);
+        memberList.add(member2);
+        memberList.add(member3);
+        memberList.add(member4);
+        memberList.add(member5);
+
     }
 
 
@@ -30,7 +44,9 @@ public class MemberService {
 
     public void deleteMember(int id){
         int index = id - 1;
-        memberList.remove(index);
+        Member member = findByMemberId(id);
+//        memberList.remove(index);
+        memberList.remove(member);
 
         logger.info("Member List {}", memberList);
 

@@ -6,8 +6,9 @@ public enum Genre {
     FICTION(302),
     SCIFI(303),
     NOVEL(304),
-    ROMANCE(305);
-
+    ROMANCE(305),
+    FANTASY(306),
+    MYSTERY(307);
 
     private final int value;
 
