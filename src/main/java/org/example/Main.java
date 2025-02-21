@@ -40,46 +40,28 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        boolean isApplicationRunning = true;
-//        boolean isLoggedIn = false;
-//
-//        while (isApplicationRunning) {
-//            if (!isLoggedIn) {
-//                //It is handling login
-//                System.out.println("1. Log in \n" +
-//                                    "2. Exit From Program");
-//                int option = Integer.parseInt(sc.nextLine());
-//                if(option == 1){
-//                    isLoggedIn = userAuthenticationService.handleLogin();
-//                }else{
-//                    isApplicationRunning = false;
-//                    System.out.println("Exiting from the application");
-//                }
-//
-//            } else {
-//                isLoggedIn = menuService.showMenu();
-//            }
-//        }
+        boolean isApplicationRunning = true;
+        boolean isLoggedIn = false;
+
+        while (isApplicationRunning) {
+            if (!isLoggedIn) {
+                //It is handling login
+                System.out.println("1. Log in \n" +
+                                    "2. Exit From Program");
+                int option = Integer.parseInt(sc.nextLine());
+                if(option == 1){
+                    isLoggedIn = userAuthenticationService.handleLogin();
+                }else{
+                    isApplicationRunning = false;
+                    System.out.println("Exiting from the application");
+                }
+
+            } else {
+                isLoggedIn = menuService.showMenu();
+            }
+        }
 
 
-        List<Member> memberList = new ArrayList<>();
-
-        Member member1 = new Member(1L, "Alice Johnson", 25, "123 Main St, Springfield");
-        Member member2 = new Member(2L, "Ethan Hunt", 30, "456 Elm St, Shelbyville");
-        Member member3 = new Member(3L, "Charlie Davis", 28, "789 Oak St, Capital City");
-        Member member4 = new Member(4L, "Tiana Prince", 32, "101 Maple St, Gotham");
-        Member member5 = new Member(5L, "Bob Smith", 29, "202 Pine St, Metropolis");
-
-        memberList.add(member1);
-        memberList.add(member2);
-        memberList.add(member3);
-        memberList.add(member4);
-        memberList.add(member5);
-
-//        Collections.sort(memberList, (m1, m2) -> m1.getAge().compareTo(m2.getAge()));
-//        members.sort(Comparator.comparingInt(Member::getAge));
-
-        System.out.println(memberList);
 
 
     }
